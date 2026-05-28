@@ -3,8 +3,8 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 
 
-def home(request):
-  return render (request,'home.html')
+def contact(request):
+  return render (request,'contact.html')
 
 def json (request):
   return JsonResponse ({'info':{'name':'Farhan',
@@ -20,3 +20,10 @@ def about(request):
 
 def index (request):
   return render (request,'index.html')
+
+def elements (request):
+  return render (request , 'elements.html')
+
+
+
+
