@@ -5,7 +5,8 @@ from blog.views import *
 
 urlpatterns = [
   path('',blog_home,name = 'blog/home'),
-  path('single',blog_single, name = 'blog/single') 
+  path('single',blog_single, name = 'blog/single'),
+  path('post-<int:pid>',test, name = 'test')  
     
 ]
 
