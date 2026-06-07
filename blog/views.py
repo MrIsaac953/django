@@ -6,13 +6,15 @@ def blog_home (request):
     context = {'posts':posts}
     return render (request , 'blog/blog-home.html',context)
 
-def blog_single (request):
-    posts = Post.objects.filter(status=1)
+def blog_single (request,pid):
+    posts = get_object_or_404(Post,pk=pid,status = 1)
     context = {'posts':posts}
     return render (request , 'blog/blog-single.html',context)
 
+
+
 def test (request,pid):
-  #post = Post.objects.get(id=pid)
-  post = get_object_or_404(Post,pk=pid)
-  context = {'post':post}
+  #post = Post.ojects.get(id=pid)
+  posts = get_object_or_404(Post,pk=pid)
+  context = {'posts':posts}
   return render (request,'test.html',context)

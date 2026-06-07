@@ -1,11 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+
+class Category(models.Model):
+  name = models.CharField(max_length=255)
+
+  def __str__(self):
+    return self.name
 
 class Post (models.Model):
-  #author
-  #image
+  author= models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+  image= models.ImageField(upload_to='blog/',default= 'blog/default.jpg')
   title = models.CharField(max_length=255)
   content = models.TextField()
-  #category
+  category = models.ManyToManyField(Category)
   #tag
   counted_view = models.IntegerField(default = 0)
   status = models.BooleanField(default=False)
@@ -14,11 +22,13 @@ class Post (models.Model):
   updated_date = models.DateTimeField(auto_now=True) 
 
   class Meta :
-    ordering =['updated_date']
+    ordering =['-updated_date']
     #verbose_name = 'خر بابا بزرگ'
     #verbose_name_plural = 'خر های بابا بزرگ'
 
   def __str__(self):
     return self.title
+  
+
   
   
