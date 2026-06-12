@@ -6,7 +6,8 @@ from blog.views import *
 urlpatterns = [
   path('',blog_home,name = 'blog/home'),
   path('<int:pid>',blog_single, name = 'blog/single'),
-  #path('post-<int:pid>',test, name = 'test') ,
+  path('category/<str:cat_name>',blog_home, name = 'category') ,
+  path('test/',test,name='tset')
 
     
 ]

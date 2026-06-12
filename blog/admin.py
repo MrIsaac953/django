@@ -7,7 +7,7 @@ class PostAdmin (admin.ModelAdmin):
   date_hierarchy = "created_date"
   #empty_value_display = "-empty-"
   #fields = ["title",'content']
-  list_display = ['title','author','content','counted_view','status','published_date','created_date','updated_date']
+  list_display = ['title','author','counted_view','status','published_date','created_date','updated_date']
   list_filter = ['status','author']
   #ordering = ['updated_date']
   #search_fields = ['title','content']
