@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 
 
+
+
 def contact(request):
   return render (request,'contact.html')
 
@@ -23,7 +25,6 @@ def index (request):
 
 def elements (request):
   return render (request , 'elements.html')
-
 
 
 
