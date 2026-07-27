@@ -1,5 +1,5 @@
 from django import template
-from blog.models import Post , Category
+from blog.models import Post , Category , Comment
 register = template.Library()
 
 @register.simple_tag(name='totalposts')
@@ -14,6 +14,10 @@ def function():
   posts=Post.objects.filter(status=1)
   return posts
 
+@register.simple_tag(name='comments')
+def function(pid):
+  return Comment.objects.filter(post_id=pid , approved = True).count()
+  
 
 @register.filter
 def snippet(value,arg):
@@ -21,8 +25,8 @@ def snippet(value,arg):
 
 @register.inclusion_tag('blog/popular-posts.html')
 def latestposts (arg=3):
-  posts=Post.objects.filter(status=1).order_by('-published_date')[:arg]
-  return{'posts':posts}
+  latest_posts=Post.objects.filter(status=1).order_by('-published_date')[:arg]
+  return{'latest_posts':latest_posts}
 
 @register.inclusion_tag('blog/category.html')
 def Postcategories():

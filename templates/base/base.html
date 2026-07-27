@@ -1,3 +1,4 @@
+
 	{% load static %}
 	<!DOCTYPE html>
 	<html lang="zxx" class="no-js">
@@ -38,8 +39,13 @@
 			  		<div class="row align-items-center">
 			  			<div class="col-lg-6 col-sm-6 col-6 header-top-left">
 			  				<ul>
-			  					<li><a href="#">Visit Us</a></li>
-			  					<li><a href="#">Buy Tickets</a></li>
+									{% if user.is_authenticated%}
+			  					<li><a href="#">you logged as {{request.user.username}}</a></li>
+									<li><a href="{% url 'accounts:logout'%}">Logout</a></li>
+									{% else %}
+			  					<li><a href="{% url 'accounts:login'%}">Log in</a></li>
+									<li><a href="{% url 'accounts:signup'%}">signup</a></li>
+									{% endif %}
 			  				</ul>			
 			  			</div>
 			  			<div class="col-lg-6 col-sm-6 col-6 header-top-right">
@@ -132,11 +138,13 @@
 								<p>
 									For business professionals caught between high OEM price and mediocre print and graphic output.									
 								</p>								
-								<div id="mc_embed_signup">
-									<form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscription relative">
+								<div>
+									<form action="{% url 'website:newsletter' %}" method="post" class="subscription relative">
+										{% csrf_token %}
 										<div class="input-group d-flex flex-row">
-											<input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email">
-											<button class="btn bb-btn"><span class="lnr lnr-location"></span></button>		
+											<input name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email">
+											<input type='hidden' name='next' value='{{request.path}}'>
+											<button type='submit' class="btn bb-btn"><span class="lnr lnr-location"></span></button>		
 										</div>									
 										<div class="mt-10 info"></div>
 									</form>
@@ -189,5 +197,18 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			<script src="{% static 'js/owl.carousel.min.js' %}"></script>							
 			<script src="{% static 'js/mail-script.js' %}"></script>	
 			<script src="{% static 'js/main.js' %}"></script>	
+			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+			{% if messages %}
+				{% for message in messages %}
+					<script >
+						Swal.fire({ 
+							title:'MESSAGE',
+							text:'{{message}}',
+							icon:"{{message.tag}}"
+						})
+					</script>
+				{% endfor %}
+			{% endif %}
+			<script id="dsq-count-scr" src="//127-0-0-1-fjog4mkjkk.disqus.com/count.js" async></script>
 		</body>
 	</html>

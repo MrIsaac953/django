@@ -1,9 +1,10 @@
 from django.db import models
+from django.urls import reverse
 
-class contact (models.Model):
+class Contact (models.Model):
   name = models.CharField(max_length=255)
   email = models.EmailField(max_length=254)
-  subject = models.CharField(max_length=255)
+  subject = models.CharField(max_length=255 , blank=True)
   message = models.TextField(max_length=255)
   created_date = models.DateTimeField(auto_now_add=True)
   updated_date = models.DateTimeField(auto_now=True) 
@@ -11,3 +12,10 @@ class contact (models.Model):
   def __str__(self):
       return self.name
   
+  
+class Newsletter(models.Model):
+   email = models.EmailField(max_length=255)
+
+   def __str__(self):
+      return self.email
+   
